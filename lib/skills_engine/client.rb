@@ -5,7 +5,7 @@ module SkillsEngine
   class Client
 
     OAUTH_ENDPOINT = 'https://api.skillsengine.com/oauth/token'
-    ANALYSIS_TYPES = %w(text mocs)
+    ANALYSIS_TYPES = %w(text flat_text mocs)
 
     def initialize
       @access_token = get_access_token
@@ -17,6 +17,8 @@ module SkillsEngine
       case analysis_type.to_sym
       when :text
         TextAnalyzer.call(params)
+      when :flat_text
+        FlattenedTextAnalyzer.call(params)
       when :mocs
         MocsAnalyzer.call(params)
       else
